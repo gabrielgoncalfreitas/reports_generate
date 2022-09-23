@@ -1,7 +1,5 @@
 <h1 align="center">Reports generator</h1>
 
-#### Please find below the assessment. Be aware that this assessment is to understand the extension of your knowledge so you don't need to do all the requirements.
-
 **1.1** Create a "CRUD" of Profile with the fields "First Name", "Last name", "DBO" (date of birth) and "gender".
 
 **1.2** Create a "CRUD" of Reports with the fields "Title" and "Description".
@@ -20,10 +18,6 @@ Extras:
 - Load JS e CSS using mix.
 
 - Generating PDF described in the item **1.5** using Laravel queues. The system will send the information of the Report to the queue and the queue will return the PDf file.
-
-In four hours you will receive this email in Portuguese, so do not worry if you don't get all the information that you need from this email.
-
-Please let me know if you have any questions. You can send me a message either on telegram on Skype and I'll reply to you as soon as possible.
 
 <hr>
 
