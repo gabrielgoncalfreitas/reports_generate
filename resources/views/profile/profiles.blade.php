@@ -62,12 +62,12 @@
                                     <div class="form-floating mb-3">
                                         <input required type="text" class="form-control ajaxDisabled"
                                             id="firstNameFloating" placeholder="First name" name="first_name">
-                                        <label for="firstNameFloating">First name</label>
+                                        <label for="firstNameFloating" maxlength="250">First name</label>
                                     </div>
                                     <div class="form-floating mb-3">
                                         <input required type="text" class="form-control ajaxDisabled"
                                             id="lastNameFloating" placeholder="First name" name="last_name">
-                                        <label for="lastNameFloating">Last name</label>
+                                        <label for="lastNameFloating" maxlength="250">Last name</label>
                                     </div>
                                     <div class="form-floating mb-3">
                                         <input required type="date" class="form-control ajaxDisabled"
@@ -113,25 +113,35 @@
                         @foreach ($data as $_data)
                             <tr>
                                 <th scope="row">{{ $_data->id }}</th>
-                                <td>{{ $_data->first_name }}</td>
-                                <td>{{ $_data->last_name }}</td>
+                                <td>
+                                    <div class="col text-break">
+                                        {{ $_data->first_name }}
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="col text-break">
+                                        {{ $_data->last_name }}
+                                    </div>
+                                </td>
                                 <td>{{ date('d/m/Y', strtotime($_data->dbo)) }}</td>
                                 <td>{{ $_data->gender }}</td>
-                                <td class="hstack">
-                                    <div data-bs-toggle="tooltip" data-bs-placement="top"
-                                        data-bs-custom-class="custom-tooltip" data-bs-title="Edit profile">
-                                        <button class="btn btn-primary mx-1" data-bs-toggle="modal"
-                                            data-bs-target="#editProfile{{ $_data->id }}Modal">
-                                            <i class="bi bi-pencil"></i>
-                                        </button>
-                                    </div>
+                                <td>
+                                    <div class="hstack">
+                                        <div data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-custom-class="custom-tooltip" data-bs-title="Edit profile">
+                                            <button class="btn btn-primary mx-1" data-bs-toggle="modal"
+                                                data-bs-target="#editProfile{{ $_data->id }}Modal">
+                                                <i class="bi bi-pencil"></i>
+                                            </button>
+                                        </div>
 
-                                    <div data-bs-toggle="tooltip" data-bs-placement="top"
-                                        data-bs-custom-class="custom-tooltip" data-bs-title="Delete profile">
-                                        <button class="btn btn-danger mx-1" data-bs-toggle="modal"
-                                            data-bs-target="#deleteProfile{{ $_data->id }}Modal">
-                                            <i class="bi bi-trash"></i>
-                                        </button>
+                                        <div data-bs-toggle="tooltip" data-bs-placement="top"
+                                            data-bs-custom-class="custom-tooltip" data-bs-title="Delete profile">
+                                            <button class="btn btn-danger mx-1" data-bs-toggle="modal"
+                                                data-bs-target="#deleteProfile{{ $_data->id }}Modal">
+                                                <i class="bi bi-trash"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -180,12 +190,12 @@
                                         <div class="form-floating mb-3">
                                             <input required type="text" class="form-control"
                                                 id="firstNameFloating" placeholder="First name" name="first_name"
-                                                value="{{ $_data->first_name }}">
+                                                maxlength="250" value="{{ $_data->first_name }}">
                                             <label for="firstNameFloating">First name</label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <input required type="text" class="form-control" id="lastNameFloating"
-                                                placeholder="Last name" name="last_name"
+                                                placeholder="Last name" name="last_name" maxlength="250"
                                                 value="{{ $_data->last_name }}">
                                             <label for="lastNameFloating">Last name</label>
                                         </div>

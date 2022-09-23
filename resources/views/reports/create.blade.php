@@ -44,12 +44,12 @@
 
                     <div class="form-floating mb-3">
                         <input required type="text" class="form-control ajaxDisabled" id="firstNameFloating"
-                            placeholder="Title" name="title">
+                            placeholder="Title" name="title" maxlength="250">
                         <label for="firstNameFloating">Title</label>
                     </div>
                     <div class="form-floating mb-3">
                         <textarea required class="form-control ajaxDisabled" placeholder="Description" id="descriptionTextarea"
-                            style="height: 212px;" name="description"></textarea>
+                            style="height: 212px;" name="description" maxlength="500"></textarea>
                         <label for="descriptionTextarea">Description</label>
                     </div>
 

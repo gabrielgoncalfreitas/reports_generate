@@ -1,8 +1,7 @@
 const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-let profilesNumber = 0;
-
+// Ajax to create a profile
 function ajaxProfile() {
     const first_name = document.querySelector('input[name=first_name]').value;
     const last_name = document.querySelector('input[name=last_name]').value;
@@ -27,6 +26,7 @@ function ajaxProfile() {
     });
 }
 
+// Ajax to create a report
 function ajaxReport() {
     const title = document.querySelector('input[name=title]').value;
     const description = document.querySelector('textarea[name=description]').value;
@@ -41,8 +41,7 @@ function ajaxReport() {
             description: description
         },
         success: function (data) {
-            alert(data);
-            location.href = '/reports';
+            location.href = data;
         },
         error: function () {
             enable();
@@ -50,6 +49,7 @@ function ajaxReport() {
     });
 }
 
+// Ajax to link the profile on report
 function addProfile() {
     const report_id = document.querySelector('input[name=report_id]');
     const profile_id = document.querySelector('select[name=profile_id]');
@@ -79,6 +79,7 @@ function addProfile() {
     }
 }
 
+// Function to disable inputs, selects and buttons while ajax is running
 function disable() {
     document.querySelectorAll('.ajaxDisabled').forEach(element => {
         element.disabled = true;

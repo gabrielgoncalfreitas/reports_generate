@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
+    # Return the profile main page
     public function index(Profile $profile)
     {
         return view('profile.profiles', [
@@ -15,6 +16,7 @@ class ProfileController extends Controller
         ]);
     }
 
+    # Create profile
     public function create(Profile $profile, Request $r)
     {
         $profile->first_name = $r->first_name;
@@ -27,7 +29,7 @@ class ProfileController extends Controller
         return 'Profile created!';
     }
 
-
+    # Change profile
     public function update(Request $r, Profile $profile, $id)
     {
         $data = [
@@ -43,6 +45,7 @@ class ProfileController extends Controller
         return redirect('/');
     }
 
+    # Delete profile and all reports links
     public function delete(profile $profile, ReportsProfiles $reportsprofiles, $id)
     {
         $reportsprofiles->where('profile_id', $id)->delete();

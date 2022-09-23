@@ -172,12 +172,13 @@
                                     <div class="modal-body">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="firstNameFloating"
-                                                placeholder="Title" name="title" value="{{ $_data->title }}">
+                                                placeholder="Title" name="title" maxlength="250"
+                                                value="{{ $_data->title }}">
                                             <label for="firstNameFloating">Title</label>
                                         </div>
                                         <div class="form-floating mb-3">
                                             <textarea required class="form-control ajaxDisabled" placeholder="Description"
-                                                id="descriptionTextarea"name="description">{{ $_data->description }}</textarea>
+                                                id="descriptionTextarea"name="description" maxlength="500">{{ $_data->description }}</textarea>
                                             <label for="descriptionTextarea">Description</label>
                                         </div>
                                     </div>

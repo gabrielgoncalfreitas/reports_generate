@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 
 class ReportsController extends Controller
 {
+    # Returns the reports main page
     public function index(Request $r)
     {
         $data = Reports::all()->sortBy('id');
@@ -19,16 +20,15 @@ class ReportsController extends Controller
         ]);
     }
 
-    public function createIndex(Request $r, Reports $reports)
+    # Returns the reports create page
+    public function createReport(Reports $reports)
     {
-        return view(
-            'reports.create',
-            [
-                'users' => $reports->all()->sortBy('id')
-            ]
-        );
+        return view('reports.create', [
+            'users' => $reports->all()->sortBy('id')
+        ]);
     }
 
+    # Create a report
     public function create(Request $r, Reports $reports)
     {
         $reports->title       = $r->title;
@@ -36,11 +36,13 @@ class ReportsController extends Controller
 
         $reports->save();
 
-        return 'Report created!';
+        return "/reports/linkprofile/" . $reports->all()->sortByDesc('id')->first()->id;
     }
 
+    # View report
     public function view(Reports $reports, Profile $profile, $id)
     {
+        # Join all profiles linkeds on the report
         $linkeds = DB::table('reports')
             ->where('reports.id', '=', $id)
             ->join('reports_profiles', 'reports.id', '=', 'reports_profiles.report_id')
@@ -55,15 +57,17 @@ class ReportsController extends Controller
                 'profiles.dbo',
                 'profiles.gender'
             ])
-            ->get();
+            ->get()
+            ->sortBy('profile_id');
 
         return view('reports.view', [
-            'data' => $reports->all()->where('id', $id),
-            'profiles' => $profile->all()->sortBy('id'),
-            'linkeds' => $linkeds
+            'reports' => $reports->all()->where('id', $id), # All reports from reports table
+            'profiles' => $profile->all()->sortBy('id'), # All profiles from profiles table
+            'linkeds' => $linkeds # All profiles linkeds on the report
         ]);
     }
 
+    # Change report
     public function update(Request $r, Reports $reports, $id)
     {
         $data = [
@@ -77,6 +81,7 @@ class ReportsController extends Controller
         return redirect('/reports');
     }
 
+    # Delete report and all linked profiles
     public function delete(Reports $reports, ReportsProfiles $reportsprofiles, $id)
     {
         $reportsprofiles->where('report_id', $id)->delete();
@@ -85,8 +90,10 @@ class ReportsController extends Controller
         return redirect('/reports');
     }
 
+    # Return the link profile page
     public function linkProfileIndex(Reports $reports, Profile $profile, $id)
     {
+        # Join all profiles linkeds on the report
         $linkeds = DB::table('reports')
             ->where('reports.id', '=', $id)
             ->join('reports_profiles', 'reports.id', '=', 'reports_profiles.report_id')
@@ -101,17 +108,20 @@ class ReportsController extends Controller
                 'profiles.dbo',
                 'profiles.gender'
             ])
-            ->get();
+            ->get()
+            ->sortBy('profile_id');;
 
         return view('reports.linkprofile', [
-            'data' => $reports->all()->where('id', $id),
-            'profiles' => $profile->all()->sortBy('id'),
-            'linkeds' => $linkeds
+            'reports' => $reports->all()->where('id', $id), # All reports from reports table
+            'profiles' => $profile->all()->sortBy('id'), # All profiles from profiles table
+            'linkeds' => $linkeds # All profiles linkeds on the report
         ]);
     }
 
+    # Delete a linked profile from report
     public function linkProfileDelete($report_id, $profile_id)
     {
+        # Return only profiles from this report
         DB::table('reports_profiles')
             ->where('report_id', '=', $report_id)
             ->where('profile_id', '=', $profile_id)
@@ -120,6 +130,7 @@ class ReportsController extends Controller
         return redirect("/reports/linkprofile/$report_id");
     }
 
+    # Link profile to report
     public function linkProfileLink(Request $r, ReportsProfiles $reportsprofiles)
     {
         $data = $reportsprofiles
@@ -127,6 +138,7 @@ class ReportsController extends Controller
             ->where('report_id', '=', $r->report_id)
             ->where('profile_id', '=', $r->profile_id);
 
+        # Check if the profile is already linked
         foreach ($data as $_data) {
             if ($_data != '') {
                 return 'Profile already linked!';

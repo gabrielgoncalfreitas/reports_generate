@@ -39,22 +39,22 @@
     <main>
         <div class="container-fluid p-5">
             <div class="container mt-5">
-                @foreach ($data as $_data)
+                @foreach ($reports as $_reports)
                     <div class="form-floating mb-3">
                         <input readonly type="text" class="form-control ajaxDisabled" id="firstNameFloating"
-                            placeholder="Title" name="title" value="{{ $_data->title }}">
+                            placeholder="Title" name="title" maxlength="250" value="{{ $_reports->title }}">
                         <label for="firstNameFloating">Title</label>
                     </div>
                     <div class="form-floating mb-3">
                         <textarea readonly class="form-control ajaxDisabled" placeholder="Description" id="descriptionTextarea"
-                            style="height: 212px;" name="description">{{ $_data->description }}</textarea>
+                            style="height: 212px;" name="description" maxlength="500">{{ $_reports->description }}</textarea>
                         <label for="descriptionTextarea">Description</label>
                     </div>
                 @endforeach
 
                 <form class="d-flex justify-content-around align-items-center mb-2">
-                    @foreach ($data as $_data)
-                        <input disabled type="text" name="report_id" value="{{ $_data->id }}" hidden>
+                    @foreach ($reports as $_reports)
+                        <input disabled type="text" name="report_id" value="{{ $_reports->id }}" hidden>
                     @endforeach
 
                     <select class="form-select me-3" aria-label="Default select example" name="profile_id">
