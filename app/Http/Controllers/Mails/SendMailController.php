@@ -28,7 +28,8 @@ class SendMailController extends Controller
                 'profiles.dbo',
                 'profiles.gender'
             ])
-            ->get();
+            ->get()
+            ->sortBy('profile_id');
 
         $mail = new ReportMail(
             $reports->all()->where('id', $id),
